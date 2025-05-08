@@ -16,6 +16,7 @@
 .env
 .env.local
 .env.development
+.env.development.local
 .env.test.local
 .env.production.local
 
@@ -33,3 +34,5 @@ yarn-error.log*
 # Server files with sensitive data
 server.js
 config.js
+
+.vercel

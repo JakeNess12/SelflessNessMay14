@@ -42,12 +42,29 @@ A React-based web application designed to connect individuals with essential com
    npm install
    ```
 
-4. Start the development server:
+4. Set up environment variables:
+   Create a `.env.development.local` file in the root directory with the following variables:
+   ```
+   REACT_APP_OPENAI_API_KEY=your_openai_api_key_here
+   PORT=3000
+   ```
+   Replace `your_openai_api_key_here` with your actual OpenAI API key.
+
+5. Start the development server:
    ```bash
    npm start
    ```
 
 The app will open in your default browser at `http://localhost:3000`.
+
+## Environment Variables
+
+The following environment variables are required to run the application:
+
+- `REACT_APP_OPENAI_API_KEY`: Your OpenAI API key for the chat functionality
+- `PORT`: The port number for the development server (default: 3000)
+
+Make sure to never commit your `.env.development.local` file to version control. It is already included in the `.gitignore` file.
 
 ## Contributing
 

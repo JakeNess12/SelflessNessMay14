@@ -1,0 +1,403 @@
+:root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --surface: #ffffff;
+    --surface-light: #f8f9fa;
+    --text-primary: #202124;
+    --text-secondary: #2f3133;
+    --error: #dc3545;
+    --success: #28a745;
+    --warning: #ffc107;
+}
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6px;
+    min-height: calc(100vh - 56px);
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.home-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.home-header p {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Emergency Section */
+.emergency-section {
+    background-color: var(--surface);
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emergency-section h2 {
+    color: var(--error);
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.emergency-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding: 6px;
+}
+
+.emergency-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 50px;
+    gap: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.emergency-button i {
+    font-size: 0.9rem;
+    margin-bottom: 1px;
+}
+
+.emergency-button.mental-health {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.emergency-button.domestic-violence {
+    background-color: #fce4ec;
+    color: #c2185b;
+}
+
+.emergency-button.emergency {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.emergency-button.substance-abuse {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.emergency-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Main Actions */
+.main-actions {
+    margin-bottom: 12px;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+.action-button {
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+    font-size: 0.9rem;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+}
+
+.action-button.primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.action-button.secondary {
+    background-color: var(--surface);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+/* Quick Features */
+.quick-features {
+    margin-bottom: 12px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.feature-card {
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.feature-card i {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.feature-card h3 {
+    font-size: 0.8rem;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--surface);
+    color: var(--text-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 90%;
+    width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: var(--primary);
+}
+
+.modal-body {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.modal-footer button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.dont-show-again {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.dont-show-again input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+/* Tutorial Modal Specific Styles */
+.tutorial {
+    max-width: 600px;
+}
+
+.tutorial-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.tutorial-step {
+    text-align: center;
+    padding: 16px;
+    background-color: var(--surface-light);
+    border-radius: 6px;
+}
+
+.tutorial-step i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.tutorial-step h3 {
+    margin: 0 0 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.tutorial-step p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home-container {
+        padding: 6px;
+    }
+
+    .emergency-section,
+    .modal-content {
+        padding: 8px;
+    }
+
+    .emergency-buttons {
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .emergency-button {
+        padding: 6px;
+        font-size: 0.75rem;
+        min-height: 50px;
+    }
+
+    .emergency-button i {
+        font-size: 0.9rem;
+        margin-bottom: 1px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tutorial-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 1rem;
+        width: 95%;
+        max-height: 85vh;
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .modal-body {
+        font-size: 0.9rem;
+    }
+
+    .modal-footer button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .tutorial {
+        max-width: 100%;
+        margin: 16px;
+    }
+}
+
+/* Update text contrast for light mode */
+.home-header h1 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+/* Update section titles */
+.section-title {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Update card headings */
+.card h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .emergency-section {
+    background-color: var(--surface);
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: var(--surface);
+}
+
+[data-theme="dark"] .emergency-button {
+    background-color: var(--surface-dark);
+} 

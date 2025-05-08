@@ -1,0 +1,342 @@
+.training-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    min-height: calc(100vh - 120px);
+}
+
+.training-container h1 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 2.5rem;
+    color: var(--text-primary);
+}
+
+.section-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.toggle-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggle-btn.active {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(144, 202, 249, 0.3);
+}
+
+.toggle-btn:hover:not(.active) {
+    background: rgba(144, 202, 249, 0.1);
+    border-color: var(--primary);
+}
+
+.content-section {
+    margin-bottom: 40px;
+}
+
+.content-section h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.training-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 20px;
+}
+
+.training-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.training-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary);
+    background: rgba(144, 202, 249, 0.05);
+}
+
+.training-card h3 {
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.card-content {
+    color: var(--text-primary);
+}
+
+.card-content p {
+    margin: 8px 0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Resource List Styles */
+.resource-list {
+    margin-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.resource-list h4 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.resource-item {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(144, 202, 249, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resource-item:last-child {
+    margin-bottom: 0;
+}
+
+.resource-item h5 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.resource-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Video Container Styles */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Resource Link Styles */
+.resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.resource-link:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.resource-link i {
+    font-size: 1rem;
+}
+
+.help-section {
+    background: var(--surface);
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.help-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.help-section p {
+    color: var(--text-primary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .training-container {
+        padding: 16px;
+    }
+
+    .training-container h1 {
+        font-size: 1.8rem;
+        margin-bottom: 24px;
+    }
+
+    .section-toggle {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+
+    .toggle-btn {
+        width: 100%;
+        padding: 16px;
+        font-size: 1.1rem;
+    }
+
+    .content-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 24px;
+    }
+
+    .training-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 8px;
+    }
+
+    .training-card {
+        padding: 20px;
+        margin-bottom: 16px;
+    }
+
+    .training-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .card-content {
+        font-size: 0.95rem;
+    }
+
+    .card-content p {
+        margin: 6px 0;
+    }
+
+    .resource-item {
+        padding: 12px;
+    }
+
+    .resource-item h5 {
+        font-size: 1rem;
+    }
+
+    .resource-item p {
+        font-size: 0.85rem;
+    }
+
+    .resource-link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .help-section {
+        padding: 24px 16px;
+        margin-top: 32px;
+    }
+
+    .help-section h3 {
+        font-size: 1.4rem;
+    }
+
+    .help-section p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .training-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .toggle-btn {
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    .content-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .training-card {
+        padding: 16px;
+    }
+
+    .resource-item {
+        padding: 10px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .toggle-btn:active {
+        background: var(--primary);
+        color: white;
+    }
+
+    .training-card:active {
+        transform: translateY(-2px);
+    }
+
+    .toggle-btn.active:active {
+        transform: none;
+    }
+
+    .resource-link:active {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+    }
+} 

@@ -18,9 +18,6 @@ import './App.css';
 import 'leaflet/dist/leaflet.css';
 import regionalServices from './regional_services.json';
 
-// Import icons
-import { FaInfoCircle } from 'react-icons/fa';
-
 function App() {
     return (
         <ThemeProvider>

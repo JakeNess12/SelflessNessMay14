@@ -148,7 +148,7 @@ function Resources() {
     } else {
       setIsLoading(false);
     }
-  }, [mapRef, filter]);
+  }, [mapRef, filter, filteredResources]);
 
   // Custom icons
   const userIcon = L.divIcon({
@@ -193,7 +193,7 @@ function Resources() {
         });
         map.fitBounds(bounds, { padding: [50, 50] });
       }
-    }, [coords, locationFound, map, filteredResources]);
+    }, [coords, map]);
     return null;
   }
 

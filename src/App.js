@@ -19,7 +19,7 @@ import 'leaflet/dist/leaflet.css';
 import regionalServices from './regional_services.json';
 
 // Import icons
-import { FaHome, FaSearch, FaComments, FaGraduationCap, FaUsers, FaMapMarkedAlt, FaBookReader } from 'react-icons/fa';
+import { FaInfoCircle } from 'react-icons/fa';
 
 function App() {
     return (

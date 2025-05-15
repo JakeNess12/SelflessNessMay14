@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './FindHelp.css';
-import { FaLocationArrow, FaFilter } from 'react-icons/fa';
 
 // Fix Leaflet default icon issue
 import L from 'leaflet';

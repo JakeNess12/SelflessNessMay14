@@ -39,6 +39,10 @@ module.exports = async (req, res) => {
       return;
     }
 
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY is not configured');
+    }
+
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: messages,
@@ -46,15 +50,33 @@ module.exports = async (req, res) => {
       max_tokens: 500
     });
 
+    if (!completion.choices?.[0]?.message) {
+      throw new Error('Invalid response from OpenAI API');
+    }
+
     res.status(200).json({
       message: completion.choices[0].message
     });
 
   } catch (error) {
     console.error('Chat API error:', error);
-    res.status(500).json({
-      error: 'Internal server error',
-      details: error.message
-    });
+    
+    // Handle specific error types
+    if (error.message.includes('OPENAI_API_KEY')) {
+      res.status(500).json({
+        error: 'Server configuration error',
+        details: 'API key not configured'
+      });
+    } else if (error.response?.status === 401) {
+      res.status(500).json({
+        error: 'Authentication error',
+        details: 'Invalid API key'
+      });
+    } else {
+      res.status(500).json({
+        error: 'Internal server error',
+        details: error.message
+      });
+    }
   }
 }; 

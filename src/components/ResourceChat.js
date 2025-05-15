@@ -151,7 +151,6 @@ Guidelines:
       }
 
       const data = await response.json();
-      console.log('Received response:', data);
       
       if (data.message && data.message.content) {
         setMessages(prev => [...prev, { 

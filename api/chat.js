@@ -1,36 +1,33 @@
-const OpenAI = require('openai');
+const { OpenAI } = require('openai');
 
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-module.exports = async (req, res) => {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+// CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
 
-  // Handle OPTIONS request
+module.exports = async (req, res) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).json({}, { headers: corsHeaders });
   }
 
   // Only allow POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed' }, { headers: corsHeaders });
   }
 
   try {
     const { messages } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Invalid request format' });
+      return res.status(400).json({ error: 'Invalid request format' }, { headers: corsHeaders });
     }
 
     const completion = await openai.chat.completions.create({
@@ -42,12 +39,13 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({
       message: completion.choices[0].message
-    });
+    }, { headers: corsHeaders });
+
   } catch (error) {
-    console.error('OpenAI API error:', error);
+    console.error('Chat API error:', error);
     return res.status(500).json({
-      error: 'Error processing your request',
+      error: 'Internal server error',
       details: error.message
-    });
+    }, { headers: corsHeaders });
   }
 }; 

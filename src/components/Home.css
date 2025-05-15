@@ -8,6 +8,7 @@
     --error: #dc3545;
     --success: #28a745;
     --warning: #ffc107;
+    --border: #e0e0e0;
 }
 
 .home-container {
@@ -52,8 +53,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.emergency-section h2 {
-    color: var(--error);
+.home-container .emergency-section h2 {
+    color: #b71c1c !important;
     margin-bottom: 8px;
     text-align: center;
     font-size: 1.1rem;
@@ -74,7 +75,7 @@
     padding: 6px;
     border: none;
     border-radius: 6px;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
@@ -85,33 +86,33 @@
 }
 
 .emergency-button i {
-    font-size: 0.9rem;
-    margin-bottom: 1px;
-}
-
-.emergency-button.mental-health {
-    background-color: #e3f2fd;
-    color: #1565c0;
-}
-
-.emergency-button.domestic-violence {
-    background-color: #fce4ec;
-    color: #c2185b;
-}
-
-.emergency-button.emergency {
-    background-color: #ffebee;
-    color: #c62828;
-}
-
-.emergency-button.substance-abuse {
-    background-color: #e8f5e9;
-    color: #2e7d32;
+    font-size: 1rem;
+    margin-bottom: 2px;
 }
 
 .emergency-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.emergency-button.mental-health {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+.emergency-button.domestic-violence {
+    background-color: #fce4ec;
+    color: #880e4f;
+}
+
+.emergency-button.emergency {
+    background-color: #ffebee;
+    color: #b71c1c;
+}
+
+.emergency-button.substance-abuse {
+    background-color: #e8f5e9;
+    color: #1b5e20;
 }
 
 /* Main Actions */
@@ -162,17 +163,31 @@
 }
 
 .feature-card {
-    padding: 12px;
+    padding: 8px;
     border-radius: 6px;
+    background-color: var(--surface);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: transform 0.2s;
+    min-height: 40px;
+}
+
+.feature-card:hover {
+    transform: translateY(-2px);
+    background-color: var(--surface-light);
 }
 
 .feature-card i {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
+    font-size: 1rem;
+    margin-bottom: 2px;
+    color: var(--primary);
 }
 
 .feature-card h3 {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
 }
 
 /* Modal Styles */
@@ -186,44 +201,47 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .modal-content {
-    background-color: var(--surface);
-    color: var(--text-primary);
-    padding: 1rem;
-    border-radius: 8px;
-    max-width: 90%;
-    width: 400px;
-    max-height: 85vh;
-    overflow-y: auto;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border);
     position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
 }
 
 .modal-header h2 {
-    margin: 0;
     color: var(--text-primary);
     font-size: 1.5rem;
+    margin: 0 0 12px;
+    font-weight: 600;
 }
 
 .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     cursor: pointer;
-    padding: 0.5rem;
-    transition: color 0.3s ease;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s ease;
 }
 
 .modal-close:hover {
@@ -232,27 +250,33 @@
 
 .modal-body {
     color: var(--text-secondary);
+    font-size: 1rem;
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 24px;
+}
+
+.modal-body p {
+    margin-bottom: 16px;
+}
+
+.modal-body p:last-child {
+    margin-bottom: 0;
 }
 
 .modal-footer {
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.5rem;
-}
-
-.modal-footer button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .dont-show-again {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    justify-content: center;
+    gap: 8px;
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
@@ -260,43 +284,44 @@
 .dont-show-again input[type="checkbox"] {
     width: 16px;
     height: 16px;
-}
-
-/* Tutorial Modal Specific Styles */
-.tutorial {
-    max-width: 600px;
-}
-
-.tutorial-steps {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin: 24px 0;
-}
-
-.tutorial-step {
-    text-align: center;
-    padding: 16px;
-    background-color: var(--surface-light);
-    border-radius: 6px;
-}
-
-.tutorial-step i {
-    font-size: 1.5rem;
-    color: var(--primary);
-    margin-bottom: 8px;
-}
-
-.tutorial-step h3 {
-    margin: 0 0 8px;
-    color: var(--text-primary);
-    font-size: 1rem;
-}
-
-.tutorial-step p {
     margin: 0;
+}
+
+.modal-footer button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.modal-footer button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .modal-content {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .modal-header h2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .modal-body {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-color: var(--border);
 }
 
 /* Responsive Design */
@@ -330,10 +355,6 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .tutorial-steps {
-        grid-template-columns: 1fr;
-    }
-
     .modal-content {
         padding: 1rem;
         width: 95%;
@@ -352,10 +373,64 @@
         padding: 0.4rem 0.8rem;
         font-size: 0.85rem;
     }
+}
 
-    .tutorial {
-        max-width: 100%;
-        margin: 16px;
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    .home-header h1 {
+        color: #ecf0f1;
+    }
+
+    .tagline {
+        color: #bdc3c7;
+    }
+
+    .intro-text {
+        color: #95a5a6;
+    }
+
+    .emergency-section h2 {
+        color: #ecf0f1;
+    }
+
+    .feature-card {
+        background-color: var(--surface);
+    }
+
+    .feature-card:hover {
+        background-color: var(--surface-light);
+    }
+
+    .feature-card h3 {
+        color: var(--text-primary);
+    }
+
+    .modal-content {
+        background-color: #2c3e50;
+    }
+
+    .modal-header h2 {
+        color: #ecf0f1;
+    }
+
+    .modal-close {
+        color: #bdc3c7;
+    }
+
+    .modal-body p {
+        color: #ecf0f1;
+    }
+
+    .modal-body li {
+        color: #bdc3c7;
+    }
+
+    .modal-footer {
+        border-top-color: #34495e;
+    }
+
+    .dont-show-again {
+        color: #bdc3c7;
     }
 }
 
@@ -400,4 +475,56 @@
 
 [data-theme="dark"] .emergency-button {
     background-color: var(--surface-dark);
+}
+
+.emergency-info {
+    margin-top: 16px;
+}
+
+.phone-number, .website {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.phone-number i, .website i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.phone-number span {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.website a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.website a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.additional-info {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .phone-number span,
+[data-theme="dark"] .website a {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .additional-info {
+    color: var(--text-secondary);
 } 

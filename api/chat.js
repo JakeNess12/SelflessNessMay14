@@ -6,7 +6,7 @@ const openai = new OpenAI({
 });
 
 module.exports = async (req, res) => {
-  // Enable CORS
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -27,28 +27,26 @@ module.exports = async (req, res) => {
   }
 
   try {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error('OpenAI API key is not configured');
+    const { messages } = req.body;
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: 'Invalid request format' });
     }
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
-      messages: req.body.messages,
-      max_tokens: 1000
+      model: "gpt-3.5-turbo",
+      messages: messages,
+      temperature: 0.7,
+      max_tokens: 500
     });
 
-    // Transform OpenAI response format to match expected format
-    const transformedResponse = {
-      content: [{
-        text: completion.choices[0].message.content
-      }]
-    };
-    
-    res.json(transformedResponse);
+    return res.status(200).json({
+      message: completion.choices[0].message
+    });
   } catch (error) {
-    console.error('OpenAI API Error:', error.message);
-    res.status(500).json({ 
-      error: 'Failed to fetch from OpenAI API',
+    console.error('OpenAI API error:', error);
+    return res.status(500).json({
+      error: 'Error processing your request',
       details: error.message
     });
   }

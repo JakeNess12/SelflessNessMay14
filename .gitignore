@@ -19,6 +19,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+openai-proxy/.env
 
 # logs
 npm-debug.log*

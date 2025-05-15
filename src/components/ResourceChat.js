@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ResourceChat.css';
 
-const API_BASE_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:3001'
-  : 'http://10.0.0.29:3001';
+// Use relative path for API in both development and production
+const API_BASE_URL = '/api';
 
 const PRESET_PROMPTS = [
   { id: 'food', text: 'I need food assistance', icon: 'fas fa-utensils' },
@@ -15,17 +14,12 @@ const PRESET_PROMPTS = [
 ];
 
 const MAX_CHARS = 50;
-const FREE_MESSAGE_LIMIT = 5;
 
 const ResourceChat = ({ resources }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [messageCount, setMessageCount] = useState(() => {
-    const count = localStorage.getItem('chatMessageCount');
-    return count ? parseInt(count) : 0;
-  });
   const [showPromptsDropdown, setShowPromptsDropdown] = useState(false);
   const [userType, setUserType] = useState(null);
   const messagesEndRef = useRef(null);
@@ -114,10 +108,6 @@ Guidelines:
   };
 
   const handlePresetPrompt = (prompt) => {
-    if (messageCount >= FREE_MESSAGE_LIMIT) {
-      setError("You've reached the free message limit. Please use the keyword search or contact support for unlimited access.");
-      return;
-    }
     setInput(prompt.text);
     sendMessage(prompt.text);
     setShowPromptsDropdown(false);
@@ -132,10 +122,6 @@ Guidelines:
 
   const sendMessage = async (userMessage = input.trim()) => {
     if (!userMessage) return;
-    if (messageCount >= FREE_MESSAGE_LIMIT) {
-      setError("You've reached the free message limit. Please use the keyword search or contact support for unlimited access.");
-      return;
-    }
 
     setInput('');
     setIsLoading(true);
@@ -145,7 +131,7 @@ Guidelines:
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat`, {
+      const response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -165,17 +151,13 @@ Guidelines:
       }
 
       const data = await response.json();
+      console.log('Received response:', data);
       
-      if (data.content && Array.isArray(data.content) && data.content[0]?.text) {
+      if (data.message && data.message.content) {
         setMessages(prev => [...prev, { 
           role: 'assistant', 
-          content: data.content[0].text
+          content: data.message.content
         }]);
-        
-        // Update message count
-        const newCount = messageCount + 1;
-        setMessageCount(newCount);
-        localStorage.setItem('chatMessageCount', newCount.toString());
       } else {
         throw new Error('Invalid response format from API');
       }
@@ -240,7 +222,6 @@ Guidelines:
                   key={prompt.id}
                   className="preset-prompt-btn"
                   onClick={() => handlePresetPrompt(prompt)}
-                  disabled={messageCount >= FREE_MESSAGE_LIMIT}
                 >
                   <i className={prompt.icon}></i>
                   {prompt.text}
@@ -274,13 +255,6 @@ Guidelines:
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className="message-limit-indicator">
-        {messageCount < FREE_MESSAGE_LIMIT ? (
-          <span>{FREE_MESSAGE_LIMIT - messageCount} free messages remaining</span>
-        ) : (
-          <span>Free message limit reached. Please use keyword search or contact support.</span>
-        )}
-      </div>
       <div className="chat-input">
         <div className="input-wrapper">
           <textarea
@@ -289,7 +263,6 @@ Guidelines:
             onKeyPress={handleKeyPress}
             placeholder="Type your message here..."
             rows="1"
-            disabled={messageCount >= FREE_MESSAGE_LIMIT}
           />
           <div className="char-counter">
             {input.length}/{MAX_CHARS}
@@ -297,7 +270,7 @@ Guidelines:
         </div>
         <button 
           onClick={() => sendMessage()}
-          disabled={isLoading || !input.trim() || messageCount >= FREE_MESSAGE_LIMIT}
+          disabled={isLoading || !input.trim()}
         >
           Send
         </button>

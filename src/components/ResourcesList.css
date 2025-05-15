@@ -55,6 +55,11 @@
     cursor: pointer;
 }
 
+.filter-select option {
+    background: var(--background);
+    color: var(--text-primary);
+}
+
 .search-button,
 .clear-button,
 .favorites-toggle {
@@ -84,6 +89,7 @@
 .clear-button {
     background: var(--surface-light);
     color: var(--text-primary);
+    border: 1px solid var(--border);
 }
 
 .clear-button:hover {
@@ -93,11 +99,62 @@
 .favorites-toggle {
     background: var(--surface-light);
     color: var(--text-primary);
+    border: 1px solid var(--border);
+    min-width: 120px;
 }
 
 .favorites-toggle.active {
     background: var(--primary);
     color: white;
+    border: none;
+}
+
+/* Light mode specific adjustments */
+[data-theme="light"] .result-item {
+    background: white;
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .search-filters {
+    background: white;
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .clear-button,
+[data-theme="light"] .favorites-toggle {
+    background: white;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+[data-theme="light"] .favorites-toggle.active {
+    background: #3498db;
+    color: white;
+    border: none;
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .result-item {
+    background: var(--surface-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .search-filters {
+    background: var(--surface-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .clear-button,
+[data-theme="dark"] .favorites-toggle {
+    background: var(--surface-dark);
+    color: #ffffff;
+    border: 1px solid #404040;
+}
+
+[data-theme="dark"] .favorites-toggle.active {
+    background: #3498db;
+    color: white;
+    border: none;
 }
 
 .initial-state {
@@ -172,6 +229,11 @@
     line-height: 1.5;
 }
 
+.result-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
 .resource-links {
     display: flex;
     gap: 12px;
@@ -208,6 +270,7 @@
 .directions-link {
     background: var(--surface-light);
     color: var(--text-primary);
+    border: 1px solid var(--border);
 }
 
 .directions-link:hover {

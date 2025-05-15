@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Joyride, { STATUS } from 'react-joyride';
 import './Home.css';
 
 const EmergencyModal = ({ type, onClose }) => {
@@ -74,18 +75,56 @@ const EmergencyModal = ({ type, onClose }) => {
 };
 
 const Home = () => {
-    const [showTutorial, setShowTutorial] = useState(() => {
-        const dontShow = localStorage.getItem('dontShowTutorial');
-        return !dontShow;
-    });
+    const [showTutorial, setShowTutorial] = useState(true);
     const [dontShowAgain, setDontShowAgain] = useState(false);
     const [activeModal, setActiveModal] = useState(null);
+    const [runTour, setRunTour] = useState(false);
+
+    useEffect(() => {
+        const dontShow = localStorage.getItem('dontShowTutorial');
+        console.log('LocalStorage value:', dontShow); // Debug log
+        if (dontShow === 'true') {
+            setShowTutorial(false);
+        }
+    }, []);
+
+    const steps = [
+        {
+            target: '.emergency-section',
+            content: 'Quick access to emergency services and support. Click any button for immediate assistance.',
+            placement: 'bottom',
+            disableBeacon: true
+        },
+        {
+            target: '.action-button.primary',
+            content: 'Find nearby resources and services on our interactive map.',
+            placement: 'bottom'
+        },
+        {
+            target: '.action-button.secondary',
+            content: 'Chat with our AI Assistant for personalized guidance and support.',
+            placement: 'bottom'
+        },
+        {
+            target: '.features-grid',
+            content: 'Access our resource library, training materials, community features, and learn more about our mission.',
+            placement: 'top'
+        }
+    ];
 
     const handleCloseTutorial = () => {
         if (dontShowAgain) {
             localStorage.setItem('dontShowTutorial', 'true');
         }
         setShowTutorial(false);
+        setRunTour(true);
+    };
+
+    const handleJoyrideCallback = (data) => {
+        const { status } = data;
+        if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+            setRunTour(false);
+        }
     };
 
     const handleEmergencyClick = (type) => {
@@ -94,8 +133,41 @@ const Home = () => {
 
     return (
         <div className="home-container">
+            <Joyride
+                steps={steps}
+                run={runTour}
+                continuous
+                showProgress
+                showSkipButton
+                callback={handleJoyrideCallback}
+                styles={{
+                    options: {
+                        primaryColor: '#1a73e8',
+                        zIndex: 1000,
+                    },
+                    tooltip: {
+                        fontSize: '1rem',
+                        padding: '1rem',
+                    },
+                    buttonNext: {
+                        backgroundColor: '#1a73e8',
+                        fontSize: '0.9rem',
+                        padding: '8px 16px',
+                    },
+                    buttonBack: {
+                        color: '#1a73e8',
+                        fontSize: '0.9rem',
+                        padding: '8px 16px',
+                    },
+                    buttonSkip: {
+                        color: '#666',
+                        fontSize: '0.9rem',
+                    }
+                }}
+            />
+
             {showTutorial && (
-                <div className="modal">
+                <div className="modal" style={{ display: 'flex' }}>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h2>Welcome to Selfless-Ness</h2>
@@ -106,10 +178,10 @@ const Home = () => {
                         <div className="modal-body">
                             <p>Let's get you started with finding the help you need:</p>
                             <ul>
-                                <li>Use the menu in the top-right to navigate between features</li>
-                                <li>Access emergency services quickly from the Emergency Quick Access section</li>
-                                <li>Find local resources using the map or search function</li>
-                                <li>Get personalized guidance from our AI chatbot</li>
+                                <li>Use the Emergency Quick Access buttons for immediate assistance</li>
+                                <li>Find Help on Map to locate nearby services and support</li>
+                                <li>Talk to our AI Assistant for personalized guidance</li>
+                                <li>Access the Resource Library for comprehensive information</li>
                             </ul>
                         </div>
                         <div className="modal-footer">
@@ -173,7 +245,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Main Actions - Compact hero section */}
             <section className="main-actions">
                 <div className="action-buttons">
                     <Link to="/find-help" className="action-button primary">
@@ -187,7 +258,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Quick Features - Grid of essential features */}
             <section className="quick-features">
                 <div className="features-grid">
                     <Link to="/resources" className="feature-card">

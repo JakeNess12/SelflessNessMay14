@@ -10,12 +10,16 @@ const NavigationMenu = () => {
     const { currentUser, logout } = useVolunteer();
     const location = useLocation();
 
-    const navigation = [
+    const mainNavigation = [
         { name: 'Home', path: '/', icon: 'fas fa-home' },
-        { name: 'Search for Help', path: '/find-help', icon: 'fas fa-search' },
+        { name: 'Map', path: '/find-help', icon: 'fas fa-map-marker-alt' },
         { name: 'Resources', path: '/resources', icon: 'fas fa-book' },
-        { name: 'AI Chatbot', path: '/chat', icon: 'fas fa-robot' },
-        { name: 'Training & Support', path: '/training', icon: 'fas fa-graduation-cap' },
+        { name: 'Chat', path: '/chat', icon: 'fas fa-robot' },
+        { name: 'More', path: '#', icon: 'fas fa-ellipsis-h' }
+    ];
+
+    const additionalNavigation = [
+        { name: 'Training', path: '/training', icon: 'fas fa-graduation-cap' },
         { name: 'Community', path: '/community', icon: 'fas fa-users' },
         { name: 'About Us', path: '/about', icon: 'fas fa-info-circle' }
     ];
@@ -30,15 +34,35 @@ const NavigationMenu = () => {
     };
 
     return (
-        <div className="navigation-menu">
-            <button className="hamburger-button" onClick={toggleMenu}>
-                <i className="fas fa-bars"></i>
-            </button>
+        <>
+            <div className="bottom-nav">
+                {mainNavigation.map((item) => (
+                    item.name === 'More' ? (
+                        <button
+                            key={item.name}
+                            className={`nav-item ${isOpen ? 'active' : ''}`}
+                            onClick={toggleMenu}
+                        >
+                            <i className={item.icon}></i>
+                            <span>{item.name}</span>
+                        </button>
+                    ) : (
+                        <Link
+                            key={item.name}
+                            to={item.path}
+                            className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+                        >
+                            <i className={item.icon}></i>
+                            <span>{item.name}</span>
+                        </Link>
+                    )
+                ))}
+            </div>
 
             <div className={`menu-overlay ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
                 <div className="menu-content" onClick={e => e.stopPropagation()}>
                     <div className="menu-header">
-                        <h2>Menu</h2>
+                        <h2>More Options</h2>
                         <button className="close-button" onClick={toggleMenu}>
                             <i className="fas fa-times"></i>
                         </button>
@@ -52,7 +76,7 @@ const NavigationMenu = () => {
                     </div>
 
                     <nav className="menu-nav">
-                        {navigation.map((item) => (
+                        {additionalNavigation.map((item) => (
                             <Link
                                 key={item.name}
                                 to={item.path}
@@ -102,7 +126,7 @@ const NavigationMenu = () => {
                     </nav>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

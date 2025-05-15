@@ -9,25 +9,34 @@ const openai = new OpenAI({
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400'
 };
 
 module.exports = async (req, res) => {
+  // Set CORS headers for all responses
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return res.status(200).json({}, { headers: corsHeaders });
+    res.status(200).end();
+    return;
   }
 
   // Only allow POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' }, { headers: corsHeaders });
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
   }
 
   try {
     const { messages } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Invalid request format' }, { headers: corsHeaders });
+      res.status(400).json({ error: 'Invalid request format' });
+      return;
     }
 
     const completion = await openai.chat.completions.create({
@@ -37,15 +46,15 @@ module.exports = async (req, res) => {
       max_tokens: 500
     });
 
-    return res.status(200).json({
+    res.status(200).json({
       message: completion.choices[0].message
-    }, { headers: corsHeaders });
+    });
 
   } catch (error) {
     console.error('Chat API error:', error);
-    return res.status(500).json({
+    res.status(500).json({
       error: 'Internal server error',
       details: error.message
-    }, { headers: corsHeaders });
+    });
   }
 }; 
